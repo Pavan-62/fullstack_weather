@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Information</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('https://tse2.mm.bing.net/th?id=OIP.O39O_yFMeBBltJiwo5HUMgHaF7&pid=Api&P=0&h=180'); 
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
+    }
+
+    form {
+      background: rgba(0, 0, 0, 0.7); 
+      padding: 1.5em;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      margin-bottom: 2em;
+    }
+
+    label {
+      font-size: 1.2em;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0.5em;
+      margin-top: 0.5em;
+      margin-bottom: 1em;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 0.5em 1.5em;
+      background: #007BFF;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .weather-info {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 1.5em;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      margin-top: 1em;
+    }
+
+    .weather-info img {
+      margin-top: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Weather Information</h1>
+
+  <form action="/weather" method="POST">
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" required>
+    <br>
+    <button type="submit">Get Weather</button>
+  </form>
+
+  <% if (typeof weather !== 'undefined') { %>
+    <div class="weather-info">
+      <h2>Weather for <%= weather.location.name %>, <%= weather.location.region %>, <%= weather.location.country %>:</h2>
+      <p>Temperature: <%= weather.current.temp_c %> °C</p>
+      <p>Condition: <%= weather.current.condition.text %></p>
+      <p>Humidity: <%= weather.current.humidity %>%</p>
+      <p>Wind: <%= weather.current.wind_kph %> kph</p>
+      <img src="<%= weather.current.condition.icon %>" alt="Weather Icon">
+    </div>
+  <% } %>
+</body>
+</html>
